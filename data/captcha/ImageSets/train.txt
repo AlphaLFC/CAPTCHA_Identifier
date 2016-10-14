@@ -1,1 +1,1 @@
-path to image without ext.
+name of image without path and ext.
