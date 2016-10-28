@@ -15,7 +15,7 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         im = request.files['file']
-        path = os.path.join(os.getcwd(), 'static', im.filename)
+        path = os.path.join(os.getcwd(), im.filename)
         im.save(path)
         det_str = 'Predict string is: {:s}'.format(detect_captcha(path))
         return render_template('upload.html', results={'img': im.filename, 'str': det_str})
