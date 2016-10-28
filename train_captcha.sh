@@ -12,7 +12,7 @@ set -e
 
 export PYTHONUNBUFFERED="True"
 
-GPU_ID=$1
+GPU_ID=0
 NET=SKYNET
 NET_lc=${NET,,}
 DATASET=captcha
@@ -27,7 +27,7 @@ case $DATASET in
     TRAIN_IMDB="captcha_train"
     TEST_IMDB="captcha_test"
     PT_DIR="captcha"
-    ITERS=20000
+    ITERS=10000
     ;;
   *)
     echo "No dataset given"
@@ -35,7 +35,7 @@ case $DATASET in
     ;;
 esac
 
-LOG="experiments/logs/my_faster_rcnn_${NET}_${EXTRA_ARGS_SLUG}.`date +'%Y-%m-%d_%H-%M-%S'`.txt"
+LOG="experiments/logs/my_faster_rcnn_${NET}_${EXTRA_ARGS_SLUG}_`date +'%Y-%m-%d_%H-%M-%S'`.txt"
 exec &> >(tee -a "$LOG")
 echo Logging output to "$LOG"
 
