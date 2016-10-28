@@ -20,7 +20,7 @@ def parse_rec(filename):
     for obj in objs:
         obj_struct = {}
         obj_struct['bbox'] = obj[:4]
-        obj_struct['name'] = str(obj[4])
+        obj_struct['name'] = obj[4]
         obj_struct['difficult'] = 0
         objects.append(obj_struct)
     return objects

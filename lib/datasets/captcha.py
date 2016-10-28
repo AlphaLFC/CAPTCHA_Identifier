@@ -25,7 +25,8 @@ class captcha(imdb):
         self._devkit_path = devkit_path
         self._data_path = self._devkit_path  # yeah!
         self._classes = tuple(['__background__'] +  # always index 0
-                              list(string.digits + string.letters))
+                              list(string.digits + string.lowercase +
+                                   string.uppercase))
         self._class_to_idx = dict(zip(self.classes,
                                       xrange(self.num_classes)))
         self._image_ext = ['.jpg', '.png']
@@ -35,7 +36,7 @@ class captcha(imdb):
 
         self.config = {'cleanup': True,
                        'use_salt': True,
-                       'top_k': 200,
+                       'top_k': 2000,
                        'use_diff': False,
                        'rpn_file': None}
         assert os.path.exists(self._devkit_path), \
@@ -113,7 +114,7 @@ class captcha(imdb):
         # Load object bounding boxes into a data frame.
         for idx, obj in enumerate(objs):
             boxes[idx, :] = obj[:4]
-            cls = self._class_to_idx[obj[4]]
+            cls = self._class_to_idx[str(obj[4])]
             gt_classes[idx] = cls
             overlaps[idx, cls] = 1.0
             seg_areas[idx] = (obj[2]-obj[0]+1) * (obj[3]-obj[1]+1)
