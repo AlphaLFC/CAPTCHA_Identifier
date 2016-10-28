@@ -6,7 +6,7 @@
 <input type='submit' value='Upload'>
 </form>
 {% if results %}
-<img src={{url_for('static', filename=results.img)}} />
+<img src={{results.img}} />
 <ul>{{results.str}}</ul>
 {% endif %}
 </body>
