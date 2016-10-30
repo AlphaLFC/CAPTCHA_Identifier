@@ -4,7 +4,7 @@ Ultize the faster-rcnn framework to identify captcha
 
 - This repo must be megered with py-faster-rcnn and caffe-fast-rcnn
 - Installation guide
-  1. First git clone py-faster-rcnn recursively with caffe-fast-rcnn
+  1. First git clone py-faster-rcnn recursively with caffe-fast-rcnn, https://github.com/rbgirshick/py-faster-rcnn
   2. Merge newest version of caffe with caffe-fast-rcnn. And do some minor changes (see notes in my leanote, adding soon...)
   3. Make py-faster-rcnn/lib and caffe and pycaffe (see tips in my leanote, adding soon...)
   4. Git clone this repository and merge it with py-faster-rcnn
