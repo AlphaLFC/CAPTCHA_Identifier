@@ -1,6 +1,6 @@
 # CAPTCHA_by_py-faster-rcnn
 
-Ultize the faster-rcnn framework to identify captcha
+Utilize the faster-rcnn framework to identify captcha
 
 - This repo must be megered with py-faster-rcnn and caffe-fast-rcnn
 - Installation guide
