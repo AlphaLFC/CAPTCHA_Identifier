@@ -28,17 +28,13 @@ CFG_FILE = os.path.join(ROOT_PATH,
                         'experiments/cfgs/my_faster_rcnn.yml')
 PROTOTXT = os.path.join(ROOT_PATH,
                         'models/captcha/SKYNET/my_faster_rcnn/test.prototxt')
-
+NET = caffe.Net(PROTOTXT, CAFFEMODEL, caffe.TEST)
 
 
 def detect_captcha(img_file):
     cfg_from_file(CFG_FILE)
-    # print 'Using config:'
-    # pprint.pprint(cfg)
-    import caffe
-    net = caffe.Net(PROTOTXT, CAFFEMODEL, caffe.TEST)
     img = cv2.imread(img_file)
-    scores, boxes = im_detect(net, img)
+    scores, boxes = im_detect(NET, img)
     captcha = []
     for cls_idx, cls in enumerate(CLASSES[1:]):
         cls_idx += 1
@@ -46,13 +42,17 @@ def detect_captcha(img_file):
         cls_scores = scores[:, cls_idx]
         dets = np.hstack((cls_boxes,
                           cls_scores[:, np.newaxis])).astype(np.float32)
-        keep = nms(dets, 0.5)
+        # if the captcha image have more than one char, use this
+        keep = nms(dets, 0.6)
         dets = dets[keep, :]
         dets = dets[np.where(dets[:, 4] > 0.6)]
         if len(dets) != 0:
             chars = [(bbox, cls) for bbox in dets[:, :4]]
             for char in chars:
                 captcha.append(char)
+        #char = dets[np.argmax(dets[:, 4])]
+        #if char[4] > 0.6:
+        #    captcha.append((char[:4], cls)) 
     captcha = np.array(sorted(captcha, key=lambda x: x[0][0]))
     captcha_str = ''.join(captcha[:, 1])
     return captcha_str
